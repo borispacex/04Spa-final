@@ -1,0 +1,29 @@
+<div class="body">
+    <div class="login">
+        <form [formGroup]="formLogin" (ngSubmit)="ingresar()" class="form-signin">
+            <img [src]="logo" alt="" width="50%" heigh="80%">
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+            <mat-form-field class="ancho" appereance="fill">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput autocomplete="off" formControlName="email">
+                <mat-error *ngIf="hasError('email', 'required')">
+                    El email es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="hasError('email', 'email')">
+                    Proporcione el <strong>email</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="ancho" appereance="fill">
+                <mat-label>Contrasena</mat-label>
+                <input type="password" matInput autocomplete="off" formControlName="pwd">
+                <mat-error *ngIf="hasError('pwd', 'required')">
+                    La contrasena es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <button type="submit" class="ancho button" mat-raised-button color="primary" [disabled]="formLogin.invalid">Ingresar</button>
+            <br><br>
+            <small><a [routerLink]="['/dashboard']">Ingresar como invitado</a></small>
+        </form>
+    </div>
+</div>
