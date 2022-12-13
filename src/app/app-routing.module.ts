@@ -6,6 +6,7 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login'},
   { path: 'login', component: LoginComponent },
+  { path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'not-found' }
 ];
