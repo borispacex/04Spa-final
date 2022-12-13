@@ -6,22 +6,30 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## APUNTES
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ng new 04Spa-final
 
-## Build
+ng add @angular/material
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+ng g c components/login
 
-## Running unit tests
+ng g module components/shared
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+ng g c components/shared/notFound
+---------------------------------------------------
+ng g module components/dashboard --routing
+ng g c components/dashboard
 
-## Running end-to-end tests
+ng g c components/dashboard/navbar
+ng g c components/dashboard/home
+ng g c components/dashboard/empleados
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+shift + alt + (flecha arriba/abajo)
 
-## Further help
+ng g interface interfaces/departamento
+ng g interface interfaces/empleado
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ng g service services/departamento
+ng g service services/empleado
+
