@@ -13,8 +13,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 })
 export class EmpleadosComponent implements OnInit, AfterViewInit{
 
-  // displayedColumns: string[] = ['NombreCompleto', 'Departamento', 'Sueldo', 'FechaContrato', 'Acciones'];
-  displayedColumns: string[] = ['NombreCompleto'];
+  displayedColumns: string[] = ['NombreCompleto', 'Departamento', 'Sueldo', 'FechaContrato', 'Acciones'];
   dataSource = new MatTableDataSource<Empleado>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -39,7 +38,9 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
 
   dialogoNuevoEmpleado() { }
 
-  dialogoEditarEmpleado() { }
+  dialogoEditarEmpleado(dataEmpleado: Empleado) { }
+
+  dialogoEliminarEmpleado(dataEmpleado: Empleado) {}
 
   mostrarEmpleados() {
     this._empleadoService.GetEmpleados().subscribe({
