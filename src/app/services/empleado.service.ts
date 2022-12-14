@@ -17,4 +17,15 @@ export class EmpleadoService {
     return this.http.get<Empleado[]>(this.apiURL + 'lista');
   }
   
+  SaveEmpleado(modelo: Empleado): Observable<Empleado> {
+    return this.http.post<Empleado>(this.apiURL + 'guardar', modelo);
+  }
+
+  UpdateEmpleado(idEmpleado: number, modelo: Empleado): Observable<Empleado> {
+    return this.http.put<Empleado>(this.apiURL + 'actualizar/' + idEmpleado, modelo);
+  }
+
+  DeleteEmpleado(idEmpleado: number) {
+    return this.http.delete<Empleado>(this.apiURL + 'eliminar/' + idEmpleado);
+  }
 }
