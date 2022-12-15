@@ -1,1 +1,8 @@
-<p>dialogo-delete-empleado works!</p>
+<h1 mat-dialog-title>Eliminar Empleado</h1>
+<div mat-dialog-content>
+    Desea eliminar el empleado "{{dataEmpleado.nombreCompleto}}"?
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Volver</button>
+    <button mat-raised-button color="primary" (click)="confirmarEliminar()" cdkFocusInitial>Si, Eliminar</button>
+</div>

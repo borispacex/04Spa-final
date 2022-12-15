@@ -53,6 +53,17 @@ export class DialogoAddEditEmpleadoComponent implements OnInit{
       fechaContrato: ['', Validators.required],
     });
     this.mostrarDepartamentos();
+    // llenar formulario con el empleado seleccionado
+    if (this.dataEmpleado) {
+      this.formEmpleado.patchValue({
+        nombreCompleto: this.dataEmpleado.nombreCompleto,
+        idDepartamento: this.dataEmpleado.idDepartamento,
+        sueldo: this.dataEmpleado.sueldo,
+        fechaContrato: moment(this.dataEmpleado.fechaContrato, 'DD/MM/YYYY').toDate()
+      });
+      this.tituloAccion = 'Editar';
+      this.botonAccion = 'Actualizar'
+    }
   }
 
   mostrarDepartamentos() {
@@ -63,6 +74,46 @@ export class DialogoAddEditEmpleadoComponent implements OnInit{
         console.log('Error', e);
       }
     });
+  }
+
+  mostrarAlerta(mensaje: string, accion: string) {
+    this._snackBar.open(mensaje, accion, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 5000
+    });
+  }
+
+  addEditEmpleado() {
+    console.log(this.formEmpleado.value);
+    const modelo: Empleado = {
+      idEmpleado: 0,
+      nombreCompleto: this.formEmpleado.value.nombreCompleto,
+      idDepartamento: this.formEmpleado.value.idDepartamento,
+      sueldo: this.formEmpleado.value.sueldo,
+      fechaContrato: moment(this.formEmpleado.value.fechaContrato).format('DD/MM/YYYY')
+    }
+    if (this.dataEmpleado == null) {
+      // guardar empleado
+      this._empleadoService.SaveEmpleado(modelo).subscribe({
+        next: (data) => {
+          this.mostrarAlerta('Empleado guardado correctamente', 'Listo');
+          this.dialogoReferencia.close('creado');
+        }, error: (e) => {
+          this.mostrarAlerta('No se pudo crear Empleado', 'Error');
+        }
+      });
+    } else {
+      // actualizar empleado
+      this._empleadoService.UpdateEmpleado(this.dataEmpleado.idEmpleado, modelo).subscribe({
+        next: (data) => {
+          this.mostrarAlerta('Empleado editado correctamente', 'Listo');
+          this.dialogoReferencia.close('editado');
+        }, error: (e) => {
+          this.mostrarAlerta('No se pudo editar Empleado', 'Error');
+        }
+      });
+    }
   }
 
 }

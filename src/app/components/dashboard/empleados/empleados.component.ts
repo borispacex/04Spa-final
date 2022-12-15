@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { DialogoAddEditEmpleadoComponent } from '../dialogs/dialogo-add-edit-empleado/dialogo-add-edit-empleado.component';
+import { DialogoDeleteEmpleadoComponent } from '../dialogs/dialogo-delete-empleado/dialogo-delete-empleado.component';
 
 @Component({
   selector: 'app-empleados',
@@ -48,9 +49,36 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
     });
   }
 
-  dialogoEditarEmpleado(dataEmpleado: Empleado) { }
+  dialogoEditarEmpleado(dataEmpleado: Empleado) {
+    this.dialog.open(DialogoAddEditEmpleadoComponent, {
+      disableClose: true,
+      width: '350px',
+      data: dataEmpleado
+    }).afterClosed().subscribe(resultado => {
+      if (resultado == 'editado') {
+        this.mostrarEmpleados();
+      }
+    });
+  }
 
-  dialogoEliminarEmpleado(dataEmpleado: Empleado) {}
+  dialogoEliminarEmpleado(dataEmpleado: Empleado) {
+    this.dialog.open(DialogoDeleteEmpleadoComponent, {
+      disableClose: true,
+      width: '350px',
+      data: dataEmpleado
+    }).afterClosed().subscribe(resultado => {
+      if (resultado == 'eliminar') {
+        this._empleadoService.DeleteEmpleado(dataEmpleado.idEmpleado).subscribe({
+          next: (data) => {
+            this.mostrarAlerta('Empleado eliminado correctamente', 'Listo');
+            this.mostrarEmpleados();
+          }, error: (e) => {
+            this.mostrarAlerta('No se pudo elimar Empleado', 'Error');
+          }
+        });
+      }
+    });
+  }
 
   mostrarEmpleados() {
     this._empleadoService.GetEmpleados().subscribe({
@@ -59,6 +87,14 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
       }, error: (error) => {
         console.log('ERROR: ', error);
       }
+    });
+  }
+
+  mostrarAlerta(mensaje: string, accion: string) {
+    this._snackBar.open(mensaje, accion, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 5000
     });
   }
 

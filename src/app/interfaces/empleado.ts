@@ -1,5 +1,5 @@
 export interface Empleado {
-    idEmpleado: string,
+    idEmpleado: number,
     nombreCompleto: string,
     idDepartamento: string,
     nombreDepartamento?: string,
