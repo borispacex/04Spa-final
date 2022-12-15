@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Empleado } from 'src/app/interfaces/empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { DialogoAddEditEmpleadoComponent } from '../dialogs/dialogo-add-edit-empleado/dialogo-add-edit-empleado.component';
 
 @Component({
   selector: 'app-empleados',
@@ -36,7 +37,16 @@ export class EmpleadosComponent implements OnInit, AfterViewInit{
     this.dataSource.filter = filterValue.trim().toLocaleLowerCase();
   }
 
-  dialogoNuevoEmpleado() { }
+  dialogoNuevoEmpleado() {
+    this.dialog.open(DialogoAddEditEmpleadoComponent, {
+      disableClose: true,
+      width: '350px',
+    }).afterClosed().subscribe(resultado => {
+      if (resultado == 'creado') {
+        this.mostrarEmpleados();
+      }
+    });
+  }
 
   dialogoEditarEmpleado(dataEmpleado: Empleado) { }
 
